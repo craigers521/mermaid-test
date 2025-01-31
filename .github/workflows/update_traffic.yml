@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 jobs:
-  draft_release:
+  update_charts:
     runs-on: ubuntu-latest
 
     steps:
@@ -28,7 +28,7 @@ jobs:
           pip install -r requirements.txt || echo "No dependencies to install"
 
       - name: run python script to update mermaid markdown
-        run: TRAFFIC/chart_gen.py
+        run: python TRAFFIC/chart_gen.py
 
       - name: Configure git
         run: |
