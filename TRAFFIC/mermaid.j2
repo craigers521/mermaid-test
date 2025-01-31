@@ -8,15 +8,21 @@ xychart-beta
     x-axis [{{xaxis | join(',')}}]
     y-axis "Count"
     line [{{views | join(',')}}]
-    %%{init: {'theme':'forest'}}%%
+    %%{init: {
+        'theme':'forest', 
+        'xyChart': {'width':'2000'}
+        }}%%
 ```
 
 ### Repo Unique Visitors
 ```mermaid
 xychart-beta
     title "Views"
-    x-axis {{xaxis}}
+    x-axis [{{xaxis | join(',')}}]
     y-axis "Count"
-    line {{unique}}
-    %%{init: {'theme':'forest'}}%%
+    line [{{unique | join(',')}}]
+    %%{init: {
+        'theme':'forest', 
+        'xyChart': {'width':'2000'}
+        }}%%
 ```
