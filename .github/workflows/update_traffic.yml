@@ -1,0 +1,43 @@
+name: Update traffic charts
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Runs daily at midnight UTC
+  workflow_dispatch:  # Allows manual triggering
+
+permissions:
+  contents: write
+
+jobs:
+  draft_release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ssh-key: ${{ secrets.DEPLOY_KEY }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'  # Change to your required Python version
+
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt || echo "No dependencies to install"
+
+      - name: run python script to update mermaid markdown
+        run: TRAFFIC/chart_gen.py
+
+      - name: Configure git
+        run: |
+          git config --local user.email "github-actions@github.com"
+          git config --local user.name "GitHub Actions"
+
+      - name: Commit changes
+        run: |
+          git add .
+          git commit -m "chore: update traffic charts"
+          git push
+
